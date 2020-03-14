@@ -1,0 +1,35 @@
+{
+  "name": "retina-state",
+  "version": "0.0.1",
+  "description": "Simple state managment for JavaScript (with React hook)",
+  "main": "index.ts",
+  "scripts": {
+    "tsc": "tsc",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoamRa/retina-state.git"
+  },
+  "keywords": [
+    "state",
+    "managment.",
+    "react",
+    "hook"
+  ],
+  "author": "NoamR",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NoamRa/retina-state/issues"
+  },
+  "homepage": "https://github.com/NoamRa/retina-state#readme",
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
+  }
+}
