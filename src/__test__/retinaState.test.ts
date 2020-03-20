@@ -6,6 +6,7 @@ describe("Test Retina State", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+
   });
 
   it("should test initialization", () => {
@@ -77,5 +78,16 @@ describe("Test Retina State", () => {
 
     retinaState.setValue("key2", exampleValue2);
     expect(retinaState.listKeys()).toEqual(["key1", "key2"]);
+  });
+
+  it("should be able to clear all values", () => {
+    const retinaState = createRetinaState();
+    retinaState.setValue("key1", exampleValue1);
+    retinaState.setValue("key2", exampleValue2);
+    expect(retinaState.listKeys()).toEqual(["key1", "key2"]);
+
+    retinaState.clear();
+    expect(retinaState.listKeys()).toEqual([]);
+    expect(retinaState.getValue("key1")).toBeUndefined();
   });
 });

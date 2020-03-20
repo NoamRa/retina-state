@@ -1,5 +1,5 @@
-type Key = string; // | number | Symbol | object;
-type Value = any;
+export type Key = string; // | number | Symbol | object;
+export type Value = any;
 type UnSubscribe = () => void;
 type Subscriber = (...args: any) => any;
 
@@ -16,18 +16,20 @@ type GetValue = <Value>(key: Key) => Value | undefined;
 type SetValue = (key: Key, value: Value) => void;
 type Subscribe = (key: Key, subscriber: Subscriber) => UnSubscribe;
 type ListKeys = () => Key[];
+type Clear = () => void;
 
-type CreateRetinaStateReturn = {
+export type RetinaState = {
   readonly name?: string;
   readonly getValue: GetValue;
   readonly setValue: SetValue;
   readonly subscribe: Subscribe;
   readonly listKeys: ListKeys;
+  readonly clear: Clear;
 };
 
 function createRetinaState({
   name = "retina state"
-}: CreateRetinaStateParams = {}): CreateRetinaStateReturn {
+}: CreateRetinaStateParams = {}): RetinaState {
   const state = new Map<Key, ValueAndSubscribers>();
 
   const genValueAndSubscribers = (value?: Value): ValueAndSubscribers => ({
@@ -72,12 +74,17 @@ function createRetinaState({
     return [...state.keys()];
   }
 
+  function clear(): void {
+    state.clear();
+  }
+
   return Object.freeze({
     name,
     getValue,
     setValue,
     subscribe,
-    listKeys
+    listKeys,
+    clear
   });
 }
 
