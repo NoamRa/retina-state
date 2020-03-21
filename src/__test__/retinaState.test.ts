@@ -86,7 +86,7 @@ describe("Test Retina State", () => {
     retinaState.setValue("key2", exampleValue2);
     expect(retinaState.listKeys()).toEqual(["key1", "key2"]);
 
-    retinaState.clear();
+    retinaState.flush();
     expect(retinaState.listKeys()).toEqual([]);
     expect(retinaState.getValue("key1")).toBeUndefined();
   });

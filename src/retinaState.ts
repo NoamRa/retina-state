@@ -16,7 +16,6 @@ type GetValue = <Value>(key: Key) => Value | undefined;
 type SetValue = (key: Key, value: Value) => void;
 type Subscribe = (key: Key, subscriber: Subscriber) => UnSubscribe;
 type ListKeys = () => Key[];
-type Clear = () => void;
 
 export type RetinaState = {
   readonly name?: string;
@@ -24,13 +23,14 @@ export type RetinaState = {
   readonly setValue: SetValue;
   readonly subscribe: Subscribe;
   readonly listKeys: ListKeys;
-  readonly clear: Clear;
+  readonly flush: () => void;
 };
 
 function createRetinaState({
   name = "retina state"
 }: CreateRetinaStateParams = {}): RetinaState {
   const state = new Map<Key, ValueAndSubscribers>();
+  const allSubscribers = new Set<Subscriber>();
 
   const genValueAndSubscribers = (value?: Value): ValueAndSubscribers => ({
     value,
@@ -64,7 +64,9 @@ function createRetinaState({
     currentValue.subscribers.push(subscriber);
     const unSubscribe: UnSubscribe = () => {
       const val = state.get(key);
-      val!.subscribers = val!.subscribers.filter(sub => sub !== subscriber);
+      if (val && val.subscribers) {
+        val.subscribers = val.subscribers.filter(sub => sub !== subscriber);
+      }
     };
 
     return unSubscribe;
@@ -74,7 +76,11 @@ function createRetinaState({
     return [...state.keys()];
   }
 
-  function clear(): void {
+  function flush(): void {
+    for (const key of state.keys()) {
+      setValue(key, undefined);
+    }
+    allSubscribers.forEach(sub => sub());
     state.clear();
   }
 
@@ -84,7 +90,7 @@ function createRetinaState({
     setValue,
     subscribe,
     listKeys,
-    clear
+    flush
   });
 }
 
