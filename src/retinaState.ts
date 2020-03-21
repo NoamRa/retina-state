@@ -30,7 +30,6 @@ function createRetinaState({
   name = "retina state"
 }: CreateRetinaStateParams = {}): RetinaState {
   const state = new Map<Key, ValueAndSubscribers>();
-  const allSubscribers = new Set<Subscriber>();
 
   const genValueAndSubscribers = (value?: Value): ValueAndSubscribers => ({
     value,
@@ -60,8 +59,8 @@ function createRetinaState({
       currentValue = genValueAndSubscribers();
       state.set(key, currentValue);
     }
-
     currentValue.subscribers.push(subscriber);
+
     const unSubscribe: UnSubscribe = () => {
       const val = state.get(key);
       if (val && val.subscribers) {
@@ -80,7 +79,7 @@ function createRetinaState({
     for (const key of state.keys()) {
       setValue(key, undefined);
     }
-    allSubscribers.forEach(sub => sub());
+
     state.clear();
   }
 
