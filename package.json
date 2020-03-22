@@ -1,7 +1,7 @@
 {
   "name": "retina-state",
-  "version": "0.0.1",
-  "description": "Simple state managment for JavaScript (with React hook)",
+  "version": "0.1.0",
+  "description": "State managment for JavaScript (with React hook)",
   "main": "index.ts",
   "scripts": {
     "tsc": "tsc",
@@ -14,6 +14,7 @@
     "url": "git+https://github.com/NoamRa/retina-state.git"
   },
   "keywords": [
+    "retina",
     "state",
     "managment.",
     "react",
