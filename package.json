@@ -1,10 +1,12 @@
 {
   "name": "retina-state",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "State managment for JavaScript (with React hook)",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "tsc": "tsc",
+    "prepublish": "npm run build",
+    "build": "tsc",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch"
